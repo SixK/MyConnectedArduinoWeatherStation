@@ -25,4 +25,10 @@ Hardware :
 - BMP180 - ADA1603 - Pressure / Temperature sensor
 - RF433Mhz kit (to comunicate with external commercial sensors)
 
-
+External Libraries :  
+https://github.com/adafruit/DHT-sensor-library/  
+https://github.com/adafruit/Adafruit_Sensor  
+https://github.com/adafruit/Adafruit_BMP085_Unified  
+https://github.com/adafruit/Adafruit-GFX-Library  
+https://github.com/adafruit/Adafruit-ST7735-Library  
+use an unofficial SD library (I have to find which one)  
