@@ -11,13 +11,18 @@
 #include <SoftwareSerial.h>
 
 //BMP180 : Pressure & Temperature & Altitude
+// https://github.com/adafruit/Adafruit_Sensor
 #include <Adafruit_Sensor.h>
+// https://github.com/adafruit/Adafruit_BMP085_Unified
 #include <Adafruit_BMP085_U.h>
 
+// https://github.com/adafruit/Adafruit-GFX-Library
 #include <Adafruit_GFX.h>    // Core graphics library
+// https://github.com/adafruit/Adafruit-ST7735-Library
 #include <Adafruit_ST7735.h> // Hardware-specific library
 #include <SPI.h>
 
+// not the official SD.h from arduino.cc IDE
 #include <SD.h>              // SD Card
 
 #include <DS1307.h>
