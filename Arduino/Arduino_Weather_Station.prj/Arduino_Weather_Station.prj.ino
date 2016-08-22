@@ -1,7 +1,5 @@
 
 // DHT22 : Humitity & Temperature
-
-
 #include <Wire.h>
 
 // Try this from ADAFRUIT instead, current libs seems causing problem with new IDE :
@@ -22,10 +20,11 @@
 #include <Adafruit_ST7735.h> // Hardware-specific library
 #include <SPI.h>
 
-// not the official SD.h from arduino.cc IDE
+// Official SD.h seem's OK, but an unofficial version maybe needed
 #include <SD.h>              // SD Card
 
-#include <DS1307.h>
+// http://wiki.seeedstudio.com/wiki/File:RTC_Library.zip
+#include <DS1307.h>         // Realtime clock
 
 // Data wire is plugged into port 7 on the Arduino
 // Connect a 4.7K resistor between VCC and the data pin (strong pullup)
@@ -52,7 +51,7 @@ DS1307 clock;//define a object of DS1307 class
 
 struct mydata_t
 {
-    	uint8_t second;
+  uint8_t second;
 	uint8_t minute;
 	uint8_t hour; 
 	uint8_t dayOfWeek;// day of week, 1 = Monday
@@ -60,9 +59,9 @@ struct mydata_t
 	uint8_t month;
 	uint16_t year;
     
-        float pressure;
-        float temp;
-        float humidity;
+  float pressure;
+  float temp;
+  float humidity;
 } mydata;
 
 void setup(void)
@@ -121,7 +120,7 @@ void btHandle(void)
           mySerial.println(buf);
        break;
        
-       case 'd':
+       case 'd':  // get date from external source
           // delay(10);
           // Serial.println("recu : ");
           btGetDate();
@@ -292,16 +291,17 @@ void dataHandle(void)
       
         clock.getTime();
         mydata.second=clock.second;
-	mydata.minute=clock.minute;
-	mydata.hour=clock.hour;
-	mydata.dayOfWeek=clock.dayOfWeek;
-	mydata.dayOfMonth=clock.dayOfMonth;
-	mydata.month=clock.month;
-	mydata.year=clock.year;
+	      mydata.minute=clock.minute;
+	      mydata.hour=clock.hour;
+	      mydata.dayOfWeek=clock.dayOfWeek;
+	      mydata.dayOfMonth=clock.dayOfMonth;
+	      mydata.month=clock.month;
+	      mydata.year=clock.year;
 
         dataPrintTime();
     }
-    
+
+    // Each minutes
     if ( millis() - refreshSensors >= 60000 || firstInit == 1) 
     { 
         refreshSensors = millis();
@@ -314,7 +314,8 @@ void dataHandle(void)
         
         sdDataPrint();
     }
-    
+
+    // Each 6 minutes
     if ( millis() - refreshGraph >= 60000 * 6 || firstInit == 1) 
     { 
         refreshGraph = millis();
